@@ -30,6 +30,17 @@ if (build_type_keyword in STANDARD_BUILD_KEYWORDS):
     """
     print("Starting Build...\n\n")
 
+    # Sets the platform #define flags for each platform
+    if sys.platform == "linux" or sys.platform == "linux2":
+        env.Append(CPPDEFINES = ['GLFW_BUILD_LINUX_JOYSTICK'])
+    elif sys.platform == "win32":
+        env.Append(CPPDEFINES = ['_GLFW_WIN32'])
+
+
+    env.Library('glfw3', Glob('./GLFW/*.c'))
+    env.Program('test_game/main.cpp', LIBS=['glfw3'], LIBPATH='.')
+
+
 elif (build_type_keyword in HOT_RELOAD_BUILD_KEYWORDS):
     """
     HOT RELOAD BUILD

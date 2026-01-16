@@ -6,7 +6,7 @@
             "command": "C:\\Users\\gryph\\gcc\\bin\\g++.exe",
             "args": [
                 "-fdiagnostics-color=always",
-                "-lglfw3",
+                "",
                 "-g",
                 "${file}",
                 "-o",

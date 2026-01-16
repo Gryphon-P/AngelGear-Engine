@@ -30,4 +30,5 @@ static struct SignalBus {
 
 void EmitSignal(std::string signalName); // SINGLE_FRAME
 void EmitTimedSignal(std::string signalName, float duration); // TIMED
-void 
+void EmitPersistentSignal(std::string signalName); // PERSISTENT
+void KillPersistentSignal(std::string signalName);
