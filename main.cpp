@@ -18,7 +18,7 @@ void processInput(GLFWwindow* window)
 }
 
 
-void check_shader_for_errors(unsigned int shader) {
+void check_shader_for_errors(unsigned int& shader) {
 
     int  success;
     char infoLog[512];
@@ -29,12 +29,23 @@ void check_shader_for_errors(unsigned int shader) {
         glGetShaderInfoLog(shader, 512, NULL, infoLog);
         std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
     }
+}
 
+void check_shader_program_for_errors(unsigned int& program) {
+
+
+    int  success;
+    char infoLog[512];
+    glGetProgramiv(program, GL_LINK_STATUS, &success);
+    if (!success) {
+        glGetProgramInfoLog(program, 512, NULL, infoLog);
+        ...
+    }
 }
 
 void render(GLFWwindow* window) {
 
-    glClearColor(0.5f, 0.f, 0.f, 1.0f);
+    glClearColor(0.f, 0.f, 0.f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
 
@@ -61,7 +72,7 @@ void render(GLFWwindow* window) {
     */
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
-    // Defines the shader code
+    // Defines the vertex shader, stores the position data
     const char* vertexShaderSource = 
         "#version 330 core\n"
         "layout (location = 0) in vec3 aPos;\n"
@@ -80,7 +91,37 @@ void render(GLFWwindow* window) {
     // Checks if there are any bugs in the shader
     check_shader_for_errors(vertexShader);
 
+    // Fragment shader, stores the color data
+    const char* fragmentShaderSource =
+        "#version 330 core\n"
+        "out vec4 FragColor;\n"
 
+        "void main()\n"
+        "{\n"
+        "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+        "}\n";
+    unsigned int fragmentShader;
+    fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
+    glCompileShader(fragmentShader);
+    check_shader_for_errors(fragmentShader);
+
+
+    // Creates the shader program
+    unsigned int shaderProgram = glCreateProgram();
+
+    // Attaches and link the program
+    glAttachShader(shaderProgram, vertexShader);
+    glAttachShader(shaderProgram, fragmentShader);
+    glLinkProgram(shaderProgram);
+    check_shader_program_for_errors(shaderProgram);
+
+    // We can delete the shaders once we're done with them
+    glDeleteShader(vertexShader);
+    glDeleteShader(fragmentShader);
+
+    // uses the program
+    glUseProgram(shaderProgram);
 
 
 
