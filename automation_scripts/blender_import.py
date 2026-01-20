@@ -1,2 +1,0 @@
-# Imports .blend files as .fbx
-
