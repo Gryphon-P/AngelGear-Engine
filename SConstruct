@@ -8,9 +8,10 @@ Build type types:
 """
 
 import sys
+import subprocess
 
 # Creates the SCons env
-env = Environment()
+env = Environment(tools=['default', 'msvc'])
 # To link together all compiled DLLs: env.Program(target='program', source=['main.c'], LIBS=dll_targets, LIBPATH=['.'])
 # A build system may be unnecacary due to cr.h or at the very least could be slimmed down drasticlly due to it not having to handle
 # hot reloading logic.
@@ -30,15 +31,24 @@ if (build_type_keyword in STANDARD_BUILD_KEYWORDS):
     """
     print("Starting Build...\n\n")
 
+
     # Sets the platform #define flags for each platform
     if sys.platform == "linux" or sys.platform == "linux2":
         env.Append(CPPDEFINES = ['GLFW_BUILD_LINUX_JOYSTICK'])
     elif sys.platform == "win32":
         env.Append(CPPDEFINES = ['_GLFW_WIN32'])
+        
+    
 
 
-    env.Library('glfw3', Glob('./GLFW/*.c'))
-    env.Program('test_game/main.cpp', LIBS=['glfw3'], LIBPATH='.')
+    env.Library('./libs/glfw3', Glob('./GLFW/*.c'))
+    env.Library('./libs/glad', ['./includes/glad.c'])
+
+    subprocess.call(['g++', './test_game/main.cpp', '-L', 'libs', '-I' 'includes', '-lglfw3', '-lglad', '-lopengl32'])
+    
+    # env.Program('test_game/main.cpp', LIBS=['glad', 'glfw3', 'gdi32'], LIBPATH='./libs')
+
+
 
 
 elif (build_type_keyword in HOT_RELOAD_BUILD_KEYWORDS):
