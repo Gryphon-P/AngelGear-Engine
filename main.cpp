@@ -69,6 +69,10 @@ int main() {
         glfwSwapBuffers(window);
         glfwPollEvents();
 
+        if (is_key_pressed(window, K_ESCAPE)) {
+            glfwSetWindowShouldClose(window, true);
+        }
+
 
     }
 
