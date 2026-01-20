@@ -17,6 +17,75 @@ void processInput(GLFWwindow* window)
         glfwSetWindowShouldClose(window, true);
 }
 
+
+void check_shader_for_errors(unsigned int shader) {
+
+    int  success;
+    char infoLog[512];
+    glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+
+    if (!success)
+    {
+        glGetShaderInfoLog(shader, 512, NULL, infoLog);
+        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+    }
+
+}
+
+void render(GLFWwindow* window) {
+
+    glClearColor(0.5f, 0.f, 0.f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+
+    float vertices[] = {
+        -0.5f, -0.5f, 0.0f,
+         0.5f, -0.5f, 0.0f,
+         0.0f,  0.5f, 0.0f
+    };
+
+    // Vertex buffer object.
+    // 1 is the ID for the object
+    unsigned int VBO;
+    glGenBuffers(1, &VBO);
+
+    // Binds the buffer as an array buffer
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+    // Adds the vertex data to the buffer
+    // The final argument of this function has a couple states:
+    /*
+        GL_STREAM_DRAW: the data is set only once and used by the GPU at most a few times.
+        GL_STATIC_DRAW: the data is set only once and used many times.
+        GL_DYNAMIC_DRAW: the data is changed a lot and used many times.
+    */
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    // Defines the shader code
+    const char* vertexShaderSource = 
+        "#version 330 core\n"
+        "layout (location = 0) in vec3 aPos;\n"
+        "void main()\n"
+        "{\n"
+        "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+        "}\0";
+
+    // Creates a vertex shader object
+    unsigned int vertexShader = glCreateShader(GL_VERTEX_SHADER);
+
+    // Attach the source code and compile it
+    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
+    glCompileShader(vertexShader);
+
+    // Checks if there are any bugs in the shader
+    check_shader_for_errors(vertexShader);
+
+
+
+
+
+}
+
 int main() {
     
 
@@ -55,23 +124,27 @@ int main() {
     while (!glfwWindowShouldClose(window))
     {
         // INPUT
-        processInput(window);
+        if (is_key_pressed(window, K_ESCAPE)) {
+            glfwSetWindowShouldClose(window, true);
+        }
         // INPUT_END
 
         // RENDERING
-
-        // Clears the screen
-        glClearColor(0.5f, 0.f, 0.f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        render(window);
         // RENDERING_END
 
 
         glfwSwapBuffers(window);
         glfwPollEvents();
 
-        if (is_key_pressed(window, K_ESCAPE)) {
-            glfwSetWindowShouldClose(window, true);
-        }
+        
+
+        /*
+        process_input();
+        update();
+        render();
+        */
+
 
 
     }
