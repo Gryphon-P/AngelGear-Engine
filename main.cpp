@@ -2,7 +2,8 @@
 #include <GLFW/glfw3.h>
 #include <stdlib.h>
 #include <iostream>
-#include "Input.h"
+#include "input.h"
+#include "settings.h"
 
 // Resizes the viewport according to the window size
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
@@ -82,7 +83,7 @@ int main() {
     
 
     // Creates a window
-    GLFWwindow* window = glfwCreateWindow(800, 600, "rose_engine", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "rose_engine", NULL, NULL);
     if (window == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
