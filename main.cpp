@@ -27,7 +27,7 @@ void check_shader_for_errors(unsigned int& shader) {
     if (!success)
     {
         glGetShaderInfoLog(shader, 512, NULL, infoLog);
-        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+        std::cout << "ERROR::SHADER::COMPILATION_FAILED\n" << infoLog << std::endl;
     }
 }
 
@@ -39,7 +39,7 @@ void check_shader_program_for_errors(unsigned int& program) {
     glGetProgramiv(program, GL_LINK_STATUS, &success);
     if (!success) {
         glGetProgramInfoLog(program, 512, NULL, infoLog);
-        ...
+        std::cout << "ERROR::SHADER::PROGRAM::COMPILATION_FAILED\n" << infoLog << std::endl;
     }
 }
 
@@ -122,6 +122,61 @@ void render(GLFWwindow* window) {
 
     // uses the program
     glUseProgram(shaderProgram);
+
+    // glVertexAttribPointer specifies how a given draw call should interpret the vertex datas
+    /*
+        - Index of the vertex attribute
+        - Number of components per vertex attribute vec3 in this case
+        - What each componet of the attribute is - FLOAT
+        - If the data should be normalized between -1 and 1
+        - Stride of the vertex attributes, measured in bits
+        - Pointer of the first vertex component of the first attribute
+    */
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0); // ??? not sure
+
+    /*
+        Vertex Array Object (VAO) can store vertex attributes and act like a Vertex Buffer Object (VBO)
+
+        """
+         A vertex array object stores the following:
+            * Calls to glEnableVertexAttribArray or glDisableVertexAttribArray.
+            * Vertex attribute configurations via glVertexAttribPointer.
+            * Vertex buffer objects associated with vertex attributes by calls to glVertexAttribPointer.
+        """
+
+        In core openGL, we need to use VAOs otherwise it will refuse to render anything
+    */
+
+    // Create VAO
+    unsigned int VAO;
+    glGenVertexArrays(1, &VAO);
+
+    // Bind VAO
+    glBindVertexArray(VAO);
+
+
+    // Copy the vertices to the VAO
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    // Set the vertex attribute pointers
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+
+    // Draw the triangle (to be moved to the main renderloop)
+    glUseProgram(shaderProgram);
+    glBindVertexArray(VAO);
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+
+
+
+
+
+
+
+
 
 
 
