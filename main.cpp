@@ -56,7 +56,8 @@ void render(GLFWwindow* window, unsigned int shader_program, unsigned int VAO) {
     // Draw the triangle (to be moved to the main renderloop)
     glUseProgram(shader_program);
     glBindVertexArray(VAO);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    glBindVertexArray(0);
 
 
 
@@ -99,22 +100,34 @@ int main() {
         return -1;
     }
     // Sets viewport dimentions
-    glViewport(0, 0, 800, 600);
+    glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     
     // Resizes the viewport whenever the window changes size
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
 #pragma region Rendering Init
+
+    // Representation of a triangle
     float vertices[] = {
-        -0.5f, -0.5f, 0.0f,
-         0.5f, -0.5f, 0.0f,
-         0.0f,  0.5f, 0.0f
+     0.5f,  0.5f, 0.0f,  // top right
+     0.5f, -0.5f, 0.0f,  // bottom right
+    -0.5f, -0.5f, 0.0f,  // bottom left
+    -0.5f,  0.5f, 0.0f   // top left 
     };
+
+    // Triangle indices
+    unsigned int indices[] = {  // note that we start from 0!
+        0, 1, 3,   // first triangle
+        1, 2, 3    // second triangle
+    };
+
 
     // Vertex buffer object.
     // 1 is the ID for the object
     unsigned int VBO;
     glGenBuffers(1, &VBO);
+
+    
 
     // Binds the buffer as an array buffer
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -127,6 +140,7 @@ int main() {
         GL_DYNAMIC_DRAW: the data is changed a lot and used many times.
     */
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
 
     // Defines the vertex shader, stores the position data
     const char* vertexShaderSource =
@@ -154,7 +168,7 @@ int main() {
 
         "void main()\n"
         "{\n"
-        "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
+        "   FragColor = vec4(0.5f, 0.0f, 0.0f, 1.0f);\n"
         "}\n";
     unsigned int fragmentShader;
     fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -216,9 +230,21 @@ int main() {
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
+    // Element buffer object
+    unsigned int EBO;
+    glGenBuffers(1, &EBO);
+
+    // Binds the EBO to VRAM
+    // Creates an element array buffer
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
     // Set the vertex attribute pointers
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
+
+    // Draws mesh as wireframe
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 #pragma endregion
 
 
