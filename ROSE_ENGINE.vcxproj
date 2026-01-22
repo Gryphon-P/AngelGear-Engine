@@ -19,11 +19,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ecs.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ecs.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="raymath.h" />
     <ClInclude Include="settings.h" />

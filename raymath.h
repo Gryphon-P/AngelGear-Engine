@@ -174,6 +174,7 @@ typedef struct float16 {
 
 #include <math.h>       // Required for: sinf(), cosf(), tan(), atan2f(), sqrtf(), floor(), fminf(), fmaxf(), fabsf()
 
+#define RAYMATH_USE_SIMD_INTRINSICS
 #if defined(RAYMATH_USE_SIMD_INTRINSICS)
     // SIMD is used on the most costly raymath function MatrixMultiply()
     // NOTE: Only SSE intrinsics support implemented

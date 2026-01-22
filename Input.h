@@ -246,9 +246,7 @@ struct InputSystem {
 		std::vector<uint16_t> input_macros,
 		std::string action_name);
 
-	// Polls for the actions
-	void _update();
-
+	// bool, float, Vector2, or Vector3
 	auto _read_action();
 
 };
