@@ -240,7 +240,7 @@ int main() {
     while (!glfwWindowShouldClose(window))
     {
         // INPUT
-        if (_is_key_pressed(window, K_ESCAPE)) {
+        if (_is_key_pressed(window, KEY_ESCAPE)) {
             glfwSetWindowShouldClose(window, true);
         }
         // INPUT_END
