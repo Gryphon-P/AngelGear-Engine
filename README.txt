@@ -38,3 +38,6 @@ Repos suggested to me:
 Intresting Build System: https://scons.org/
 
 It's been suggested that I use Clang instead of GCC but SCons may abstact things so such things may be redundant.
+
+Live Updating AngelScript and GLSL files:
+https://stackoverflow.com/questions/15478046/how-to-find-out-if-a-file-was-modified#:~:text=std%3A%3Atime%5Ft%20last%5Fwrite%5Ftime%28const%20path%26%29%2E

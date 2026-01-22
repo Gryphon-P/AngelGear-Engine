@@ -25,6 +25,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="input.h" />
+    <ClInclude Include="raymath.h" />
     <ClInclude Include="settings.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

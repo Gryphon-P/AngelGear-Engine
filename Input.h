@@ -3,11 +3,11 @@
 #include <GLFW/glfw3.h>
 #include <stdlib.h>
 #include <iostream>
+#include "raymath.h"
+
 
 
 #pragma region input macros
-
-
 #define K_SPACE         GLFW_KEY_SPACE        
 #define K_APOSTROPHE    GLFW_KEY_APOSTROPHE   
 #define K_COMMA         GLFW_KEY_COMMA        
@@ -131,7 +131,7 @@
 
 #pragma endregion
 
-inline bool is_key_pressed(GLFWwindow* window, int key) {
+inline bool _is_key_pressed(GLFWwindow* window, int key) {
 	if (glfwGetKey(window, key) == GLFW_PRESS) {
 		return true;
 	}
@@ -139,3 +139,44 @@ inline bool is_key_pressed(GLFWwindow* window, int key) {
 		return false;
 	}
 }
+
+inline bool _is_key_released(GLFWwindow* window, int key) {
+	if (glfwGetKey(window, key) == GLFW_RELEASE) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+inline bool _is_mouse_clicked(GLFWwindow* window, int button) {
+	if (glfwGetMouseButton(window, button) == GLFW_PRESS) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+inline bool _is_mouse_released(GLFWwindow* window, int button) {
+	if (glfwGetMouseButton(window, button) == GLFW_RELEASE) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+
+// Gets the mouse cursor's position
+inline Vector2 _mouse_position(GLFWwindow* window) {
+	double x;
+	double y;
+	glfwGetCursorPos(window, &x, &y);
+	Vector2 position = { x, y };
+	return position;
+}
+
+// TODO
+//static Vector2 mouse_position_last_frame;
+//static Vector2 mouse_frame_delta;

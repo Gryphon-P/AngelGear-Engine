@@ -6,20 +6,19 @@
 #include "settings.h"
 
 // Resizes the viewport according to the window size
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+void _framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
 }
 
 // Polls input from the window
-void processInput(GLFWwindow* window)
+void _process_input(GLFWwindow* window)
 {
     if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(window, true);
 }
 
-
-void check_shader_for_errors(unsigned int& shader) {
+void _check_shader_for_errors(unsigned int& shader) {
 
     int  success;
     char infoLog[512];
@@ -32,7 +31,7 @@ void check_shader_for_errors(unsigned int& shader) {
     }
 }
 
-void check_shader_program_for_errors(unsigned int& program) {
+void _check_shader_program_for_errors(unsigned int& program) {
 
 
     int  success;
@@ -44,9 +43,7 @@ void check_shader_program_for_errors(unsigned int& program) {
     }
 }
 
-
-
-void render(GLFWwindow* window, unsigned int shader_program, unsigned int VAO) {
+void _render(GLFWwindow* window, unsigned int shader_program, unsigned int VAO) {
 
     glClearColor(0.f, 0.f, 0.f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -59,20 +56,9 @@ void render(GLFWwindow* window, unsigned int shader_program, unsigned int VAO) {
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 
-
-
-
-
-
-
-
-
-
-
 }
 
 int main() {
-    
 
     // Initializes GLFW
     glfwInit();
@@ -103,7 +89,9 @@ int main() {
     glViewport(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
     
     // Resizes the viewport whenever the window changes size
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    glfwSetFramebufferSizeCallback(window, _framebuffer_size_callback);
+
+    
 
 #pragma region Rendering Init
 
@@ -159,7 +147,7 @@ int main() {
     glCompileShader(vertexShader);
 
     // Checks if there are any bugs in the shader
-    check_shader_for_errors(vertexShader);
+    _check_shader_for_errors(vertexShader);
 
     // Fragment shader, stores the color data
     const char* fragmentShaderSource =
@@ -174,7 +162,7 @@ int main() {
     fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
     glCompileShader(fragmentShader);
-    check_shader_for_errors(fragmentShader);
+    _check_shader_for_errors(fragmentShader);
 
 
     // Creates the shader program
@@ -184,7 +172,7 @@ int main() {
     glAttachShader(shaderProgram, vertexShader);
     glAttachShader(shaderProgram, fragmentShader);
     glLinkProgram(shaderProgram);
-    check_shader_program_for_errors(shaderProgram);
+    _check_shader_program_for_errors(shaderProgram);
 
     // We can delete the shaders once we're done with them
     glDeleteShader(vertexShader);
@@ -252,13 +240,13 @@ int main() {
     while (!glfwWindowShouldClose(window))
     {
         // INPUT
-        if (is_key_pressed(window, K_ESCAPE)) {
+        if (_is_key_pressed(window, K_ESCAPE)) {
             glfwSetWindowShouldClose(window, true);
         }
         // INPUT_END
 
         // RENDERING
-        render(window, shaderProgram, VAO);
+        _render(window, shaderProgram, VAO);
         // RENDERING_END
 
 
@@ -284,3 +272,42 @@ int main() {
 
 
 }
+
+
+/*
+A given shader program is formatted as follows:
+#version version_num version_type
+
+in type var_name;
+in type var_name;
+
+out type var_name_out;
+
+uniform type uniform_var_name;
+
+void main() 
+{
+    // Wonky code goes here
+
+    // Output variables
+    var_name_out = processed_data;
+}
+
+// We are allowed 16 4-component vertex attributes.
+These could be things like position, normal, UV, etc.
+
+GLSL Types:
+vecN: very useful
+bvecN: bool vec, maybe useful?
+ivecN: probobly useful?
+uvecN: can't see a lot of use cases
+dvecN: can't see a lot of use cases, 32 bit is fine most of the time
+
+we use "layout (location = 0)" before an input variable in order to get the memory location so we can write to it.
+However, one can get the vertex attribute location via glGetAttribLocation(shader_program, "attribute_name");
+
+
+*/
+
+
+

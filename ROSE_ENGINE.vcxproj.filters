@@ -32,5 +32,8 @@
     <ClInclude Include="settings.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="raymath.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
