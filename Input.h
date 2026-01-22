@@ -3,6 +3,7 @@
 #include <GLFW/glfw3.h>
 #include <stdlib.h>
 #include <iostream>
+#include <vector>
 #include "raymath.h"
 
 
@@ -127,7 +128,20 @@
 #define KEY_RIGHT_CONTROL GLFW_KEY_RIGHT_CONTROL
 #define KEY_RIGHT_ALT     GLFW_KEY_RIGHT_ALT    
 #define KEY_RIGHT_SUPER   GLFW_KEY_RIGHT_SUPER  
-#define KEY_MENU          GLFW_KEY_MENU         
+#define KEY_MENU          GLFW_KEY_MENU
+
+#define MOUSE_BUTTON_1      GLFW_MOUSE_BUTTON_1
+#define MOUSE_BUTTON_2      GLFW_MOUSE_BUTTON_2
+#define MOUSE_BUTTON_3      GLFW_MOUSE_BUTTON_3
+#define MOUSE_BUTTON_4      GLFW_MOUSE_BUTTON_4
+#define MOUSE_BUTTON_5      GLFW_MOUSE_BUTTON_5
+#define MOUSE_BUTTON_6      GLFW_MOUSE_BUTTON_6
+#define MOUSE_BUTTON_7      GLFW_MOUSE_BUTTON_7
+#define MOUSE_BUTTON_8      GLFW_MOUSE_BUTTON_8
+#define MOUSE_BUTTON_LAST   GLFW_MOUSE_BUTTON_LAST
+#define MOUSE_BUTTON_LEFT   GLFW_MOUSE_BUTTON_LEFT
+#define MOUSE_BUTTON_RIGHT  GLFW_MOUSE_BUTTON_RIGHT
+#define MOUSE_BUTTON_MIDDLE GLFW_MOUSE_BUTTON_MIDDLE
 
 #pragma endregion
 
@@ -180,3 +194,62 @@ inline Vector2 _mouse_position(GLFWwindow* window) {
 // TODO
 //static Vector2 mouse_position_last_frame;
 //static Vector2 mouse_frame_delta;
+
+static enum EInputActionType
+{
+	BOOL, // {B}
+	FLOAT, // {X}
+	FLOAT_AXIS, // {-X, X}
+	VECTOR_2, // {X, Y}
+	VECTOR_2_AXIS, // {-X, X, -Y, Y}
+	VECTOR_3, // {X, Y, Z}
+	VECTOR_3_AXIS // {-X, X, -Y, Y, -Z, Z}
+};
+
+static enum EInputActionDevice {
+	KEYBOARD,
+	MOUSE_BUTTON,
+	MOUSE_MOVEMENT,
+	SCROLLWHEEL
+};
+
+struct InputAction {
+	EInputActionDevice input_device;
+	EInputActionType input_type;
+	std::vector<uint16_t> input_macros;
+	std::string action_name;
+};
+
+struct InputSystem {
+
+
+	std::vector<InputAction> input_actions;
+
+	/*
+		player_input._register_input_action
+		(
+			KEYBOARD,
+			BOOL,
+			{KEY_SPACE},
+			"Jump"
+		);
+
+		if (player_input._read_action("Jump")) 
+		{
+			// Jump logic
+		}
+	*/
+
+	void _register_input_action(
+		EInputActionDevice input_device,
+		EInputActionType input_type,
+		std::vector<uint16_t> input_macros,
+		std::string action_name);
+
+	// Polls for the actions
+	void _update();
+
+	auto _read_action();
+
+};
+
