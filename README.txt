@@ -62,6 +62,8 @@ Debug mode the follwing features will be avalable:
             - F - Focus on object
             - LCLK+(W/A/S/D) - First person move
             - RCLK - Select entity
+            - MCLK+Move Mouse - rotate around object
+            - MCLK+Shift+Move Mouse - Pan Camera
                 
     - ESC applies all changes to the source code
 
