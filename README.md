@@ -19,7 +19,6 @@ The main philosophy of Rose Engine can be summarized in a handful aphorisms, som
 * Clarity and development speed is more important than game performance.
 * A grey boxed game should take no more than a couple hours.
 * The developer should not have to reinvent the wheel but not be afraid to.
-* 
 
 
 
@@ -28,7 +27,7 @@ The main philosophy of Rose Engine can be summarized in a handful aphorisms, som
 ###### Functions
 
 
-
+```
 void myFunction(int x) 
 
 {
@@ -36,6 +35,7 @@ void myFunction(int x)
 ...
 
 }
+```
 
 
 
