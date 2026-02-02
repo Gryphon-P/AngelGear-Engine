@@ -11,6 +11,7 @@ The main philosophy of Rose Engine can be summarized in a handful aphorisms, som
 * Modular is better than monolithic.
 * Simple is better than complex.
 * Complex is better than complicated.
+* Conventional is better than cutting edge or strange.
 * Verbose and readable is better than consise and illegible.
 * Errors should never pass silently.
 * Changes should be seen as soon as possible.
@@ -19,6 +20,11 @@ The main philosophy of Rose Engine can be summarized in a handful aphorisms, som
 * Clarity and development speed is more important than game performance.
 * A grey boxed game should take no more than a couple hours.
 * The developer should not have to reinvent the wheel but not be afraid to.
+* Code scripting is better than visual scripting.
+
+
+Rose Engine grew out of a frustration with the unintuitiveness of Unreal Engine and Godot as well as the greed of Unity. Rose Engine aims to maximize developer productivity through modular parts, immediate feedback, and advanced debugging. While also allowing the developer to edit every single aspect of the game to allow for fine-grained control and novel mechanics and creativity.
+
 
 
 
