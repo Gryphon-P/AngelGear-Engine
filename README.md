@@ -47,7 +47,7 @@ void myFunction(int x)
 ###### Variables
 
 `
-int my\_variable;
+int my_variable;
 `
 
 ###### Classes and Structs
@@ -89,10 +89,10 @@ enum EMyEnum
 
 
 `
-\#define MY\_MACRO ...
+\#define MY_MACRO ...
 `
 `
-\#define MY\_MACRO(x) ...
+\#define MY_MACRO(x) ...
 `
 
 
@@ -100,7 +100,7 @@ enum EMyEnum
 
 
 ```
-namespace re\* 
+namespace re*
 {
 ...
 }
