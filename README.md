@@ -49,41 +49,32 @@ void myFunction(int x)
 
 ###### Variables
 
-
-
+`
 int my\_variable;
-
-
-
-
+`
 
 ###### Classes and Structs
 
 
-
+```
 class MyClass 
 
 {
 
 public:
-
 ...
-
 private:
-
 ...
-
 }
+```
 
 
-
+```
 struct MyStruct
-
 {
-
 ...
-
 }
+```
 
 
 
