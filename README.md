@@ -35,11 +35,8 @@ Rose Engine grew out of a frustration with the unintuitiveness of Unreal Engine 
 
 ```
 void myFunction(int x) 
-
 {
-
 ...
-
 }
 ```
 
@@ -55,12 +52,11 @@ int my\_variable;
 
 ###### Classes and Structs
 
+Whenever possible, use structs over classes, invisible code is often not useful.
 
 ```
 class MyClass 
-
 {
-
 public:
 ...
 private:
@@ -81,42 +77,38 @@ struct MyStruct
 ###### Enums
 
 
-
+```
 enum EMyEnum 
-
 {
-
 ...
-
 }
-
+```
 
 
 ###### Macros
 
 
-
+`
 \#define MY\_MACRO ...
-
+`
+`
 \#define MY\_MACRO(x) ...
-
+`
 
 
 ###### Namespaces
 
 
-
+```
 namespace re\* 
-
 {
-
 ...
-
 }
+```
 
 
 
-for example: remath, reaudio, retime, reecs, regraphics.
+for example: `remath, reaudio, retime, reecs, regraphics.`
 
 Not sure if I'd like to organise things in namespaces or have everthing running free.
 
