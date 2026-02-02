@@ -4,6 +4,8 @@
 
 #define RENDER_SHADOWS false
 #define RENDER_PBR false
+#define RENDER_DEPTH_BUFFER false
+#define RENDER_NORMALS false
 #define OPEN_SCENE_EDITOR false
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 600

@@ -58,6 +58,9 @@ void _render(GLFWwindow* window, unsigned int shader_program, unsigned int VAO) 
 
 }
 
+
+
+
 int main() {
 
     // Initializes GLFW
