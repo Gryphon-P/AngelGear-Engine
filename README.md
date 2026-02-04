@@ -238,7 +238,26 @@ Game
      |----...
 ```
 
+Example of what `start.scene.h` might look like:
 
+```
+struct StartScene : Scene
+{
+     void start() override 
+     {
+          Scene::start();
+
+          // Scene-specific code goes here
+     }
+
+     void update() override 
+     {
+          Scene::update();
+
+          // Scene-specific code goes here
+     }
+};
+```
 
 
 
