@@ -29,7 +29,7 @@ The main philosophy of Rose Engine can be summarized in a handful aphorisms, som
 
 
 
-void myFunction(int x) 
+void myFunction(int x)
 
 {
 
@@ -55,7 +55,7 @@ int my\_variable;
 
 
 
-class MyClass 
+class MyClass
 
 {
 
@@ -85,7 +85,7 @@ struct MyStruct
 
 
 
-enum EMyEnum 
+enum EMyEnum
 
 {
 
@@ -109,13 +109,17 @@ enum EMyEnum
 
 
 
-namespace re\* 
+namespace re\*
 
 {
 
 ...
 
 }
+
+
+
+
 
 
 
@@ -218,6 +222,22 @@ The engine bindings are the main chunk of the game engine and make the engine wh
 
 
 
+The main "modules" are as follows:
+
+* Input
+* Rendering
+* Animation
+* Physics
+* Terrain
+* Dialogue
+* AI
+* UI
+* ECS
+* Debugging
+* Math
+
+
+
 ###### Game-Specific Code and Files
 
 * .blend and .fbx 3D models
@@ -261,6 +281,4 @@ The engine bindings are the main chunk of the game engine and make the engine wh
 ###### Programming Game
 
 *Very* complex to make a DSL but might be neat.
-
-
 
