@@ -218,6 +218,25 @@ The engine bindings are the main chunk of the game engine and make the engine wh
 * Scenes contain Entities
 * All of the shader files that make up the game's render pipline are in the game specific code for easy extensibility and manipulation.
 
+```
+Game
+|----settings.h
+|----3D Models
+|----src
+     |----start.scene.h
+     |----example.scene.h
+     |----ExampleComponent.h
+     |----ExampleComponent.cpp
+     |----...
+|----shaders
+     |----vertex.glsl
+     |----geometry.glsl
+     |----rasterize.glsl
+     |----fragment.glsl
+     |----bloom.glsl
+     |----...
+```
+
 
 
 
