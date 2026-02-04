@@ -227,6 +227,7 @@ Game
      |----example.scene.h
      |----ExampleComponent.h
      |----ExampleComponent.cpp
+     |----start.greybox.h // Generated from ERP greyboxing tool
      |----...
 |----shaders
      |----vertex.glsl
