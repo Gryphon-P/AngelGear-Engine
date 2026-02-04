@@ -1,4 +1,4 @@
-ROSE\_ENGINE / RoseEngine / rose\_engine
+8ROSE\_ENGINE / RoseEngine / rose\_engine
 
 
 
@@ -33,7 +33,7 @@ Rose Engine grew out of a frustration with the unintuitiveness of Unreal Engine 
 ###### Functions
 
 
-```
+```cpp
 void myFunction(int x) 
 {
 ...
@@ -46,7 +46,7 @@ void myFunction(int x)
 
 ###### Variables
 
-`
+`cpp
 int my_variable;
 `
 
@@ -54,7 +54,7 @@ int my_variable;
 
 Whenever possible, use structs over classes, invisible code is often not useful.
 
-```
+```cpp
 class MyClass 
 {
 public:
@@ -65,7 +65,7 @@ private:
 ```
 
 
-```
+```cpp
 struct MyStruct
 {
 ...
@@ -77,7 +77,7 @@ struct MyStruct
 ###### Enums
 
 
-```
+```cpp
 enum EMyEnum 
 {
 ...
@@ -88,18 +88,19 @@ enum EMyEnum
 ###### Macros
 
 
+`cpp
+#define MY_MACRO ...
 `
-\#define MY_MACRO ...
-`
-`
-\#define MY_MACRO(x) ...
+
+`cpp
+#define MY_MACRO(x) ...
 `
 
 
 ###### Namespaces
 
 
-```
+```cpp
 namespace re*
 {
 ...
@@ -240,7 +241,7 @@ Game
 
 Example of what `start.scene.h` might look like:
 
-```
+```cpp
 struct StartScene : Scene
 {
      void start() override 
