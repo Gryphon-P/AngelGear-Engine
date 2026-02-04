@@ -257,6 +257,13 @@ struct StartScene : Scene
 
           // Scene-specific code goes here
      }
+
+    void fixedUpdate() override 
+     {
+          Scene::fixedUpdate();
+
+          // Scene-specific code goes here
+     }
 };
 ```
 
