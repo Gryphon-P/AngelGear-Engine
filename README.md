@@ -1,4 +1,4 @@
-ROSE\_ENGINE / RoseEngine / rose\_engine
+8ROSE\_ENGINE / RoseEngine / rose\_engine
 
 
 
@@ -11,6 +11,7 @@ The main philosophy of Rose Engine can be summarized in a handful aphorisms, som
 * Modular is better than monolithic.
 * Simple is better than complex.
 * Complex is better than complicated.
+* Conventional is better than cutting edge or strange.
 * Verbose and readable is better than consise and illegible.
 * Errors should never pass silently.
 * Changes should be seen as soon as possible.
@@ -19,7 +20,11 @@ The main philosophy of Rose Engine can be summarized in a handful aphorisms, som
 * Clarity and development speed is more important than game performance.
 * A grey boxed game should take no more than a couple hours.
 * The developer should not have to reinvent the wheel but not be afraid to.
-* 
+* Code scripting is better than visual scripting.
+
+
+Rose Engine grew out of a frustration with the unintuitiveness of Unreal Engine and Godot as well as the greed of Unity. Rose Engine aims to maximize developer productivity through modular parts, immediate feedback, and advanced debugging. While also allowing the developer to edit every single aspect of the game to allow for fine-grained control and novel mechanics and creativity.
+
 
 
 
@@ -28,14 +33,12 @@ The main philosophy of Rose Engine can be summarized in a handful aphorisms, som
 ###### Functions
 
 
-
-void myFunction(int x)
-
+```cpp
+void myFunction(int x) 
 {
-
 ...
-
 }
+```
 
 
 
@@ -43,87 +46,70 @@ void myFunction(int x)
 
 ###### Variables
 
-
-
-int my\_variable;
-
-
-
-
+`cpp
+int my_variable;
+`
 
 ###### Classes and Structs
 
+Whenever possible, use structs over classes, invisible code is often not useful.
 
-
-class MyClass
-
+```cpp
+class MyClass 
 {
-
 public:
-
 ...
-
 private:
-
 ...
-
 }
+```
 
 
-
+```cpp
 struct MyStruct
-
 {
-
 ...
-
 }
+```
 
 
 
 ###### Enums
 
 
-
-enum EMyEnum
-
+```cpp
+enum EMyEnum 
 {
-
 ...
-
 }
-
+```
 
 
 ###### Macros
 
 
+`cpp
+#define MY_MACRO ...
+`
 
-\#define MY\_MACRO ...
-
-\#define MY\_MACRO(x) ...
-
+`cpp
+#define MY_MACRO(x) ...
+`
 
 
 ###### Namespaces
 
 
-
-namespace re\*
-
+```cpp
+namespace re*
 {
-
 ...
-
 }
+```
 
 
 
-
-
-
-
-for example: remath, reaudio, retime, reecs, regraphics.
+for example: `remath, reaudio, retime, reecs, regraphics.`
 
 Not sure if I'd like to organise things in namespaces or have everthing running free.
 
@@ -222,22 +208,6 @@ The engine bindings are the main chunk of the game engine and make the engine wh
 
 
 
-The main "modules" are as follows:
-
-* Input
-* Rendering
-* Animation
-* Physics
-* Terrain
-* Dialogue
-* AI
-* UI
-* ECS
-* Debugging
-* Math
-
-
-
 ###### Game-Specific Code and Files
 
 * .blend and .fbx 3D models
@@ -249,7 +219,53 @@ The main "modules" are as follows:
 * Scenes contain Entities
 * All of the shader files that make up the game's render pipline are in the game specific code for easy extensibility and manipulation.
 
+```
+Game
+|----settings.h
+|----3D Models
+|----src
+     |----start.scene.h
+     |----example.scene.h
+     |----ExampleComponent.h
+     |----ExampleComponent.cpp
+     |----start.greybox.h // Generated from ERP greyboxing tool
+     |----...
+|----shaders
+     |----vertex.glsl
+     |----geometry.glsl
+     |----rasterize.glsl
+     |----fragment.glsl
+     |----bloom.glsl
+     |----...
+```
 
+Example of what `start.scene.h` might look like:
+
+```cpp
+struct StartScene : Scene
+{
+     void start() override 
+     {
+          Scene::start();
+
+          // Scene-specific code goes here
+     }
+
+     void update() override 
+     {
+          Scene::update();
+
+          // Scene-specific code goes here
+     }
+
+    void fixedUpdate() override 
+     {
+          Scene::fixedUpdate();
+
+          // Scene-specific code goes here
+     }
+};
+```
 
 
 
@@ -281,4 +297,6 @@ The main "modules" are as follows:
 ###### Programming Game
 
 *Very* complex to make a DSL but might be neat.
+
+
 
