@@ -100,9 +100,10 @@ int main() {
 
     // Representation of a triangle
     float vertices[] = {
-     0.5f,  0.5f, 0.0f,  // top right
-     0.5f, -0.5f, 0.0f,  // bottom right
-    -0.5f, -0.5f, 0.0f  // bottom left
+        // positions         // colors
+        0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // bottom right
+       -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // bottom left
+        0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // top
     };
 
     // Triangle indices
@@ -135,9 +136,12 @@ int main() {
     const char* vertexShaderSource =
         "#version 330 core\n"
         "layout (location = 0) in vec3 aPos;\n"
+        "layout (location = 1) in vec3 aColor;\n"
+        "out vec3 ourColor;\n"
         "void main()\n"
         "{\n"
         "   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
+        "   ourColor = aColor;\n"
         "}\0";
 
     // Creates a vertex shader object
@@ -154,10 +158,11 @@ int main() {
     const char* fragmentShaderSource =
         "#version 330 core\n"
         "out vec4 FragColor;\n"
+        "in vec3 ourColor;\n"
 
         "void main()\n"
         "{\n"
-        "   FragColor = vec4(0.5f, 0.0f, 0.0f, 1.0f);\n"
+        "   FragColor = vec4(ourColor, 1.0);\n"
         "}\n";
     unsigned int fragmentShader;
     fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -182,17 +187,7 @@ int main() {
     // uses the program
     glUseProgram(shaderProgram);
 
-    // glVertexAttribPointer specifies how a given draw call should interpret the vertex datas
-    /*
-        - Index of the vertex attribute
-        - Number of components per vertex attribute vec3 in this case
-        - What each componet of the attribute is - FLOAT
-        - If the data should be normalized between -1 and 1
-        - Stride of the vertex attributes, measured in bits
-        - Pointer of the first vertex component of the first attribute
-    */
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0); // ??? not sure
+   
 
     /*
         Vertex Array Object (VAO) can store vertex attributes and act like a Vertex Buffer Object (VBO)
@@ -219,6 +214,10 @@ int main() {
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
+    // Color attribute
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+
     // Element buffer object
     unsigned int EBO;
     glGenBuffers(1, &EBO);
@@ -228,8 +227,16 @@ int main() {
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-    // Set the vertex attribute pointers
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    // glVertexAttribPointer specifies how a given draw call should interpret the vertex datas
+    /*
+        - Index of the vertex attribute
+        - Number of components per vertex attribute vec3 in this case
+        - What each componet of the attribute is - FLOAT
+        - If the data should be normalized between -1 and 1
+        - Stride of the vertex attributes, measured in bits
+        - Pointer of the first vertex component of the first attribute
+    */
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
     // Draws mesh as wireframe
