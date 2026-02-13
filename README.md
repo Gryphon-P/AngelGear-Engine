@@ -244,28 +244,76 @@ Example of what `start.scene.h` might look like:
 ```cpp
 struct StartScene : Scene
 {
-     void start() override 
-     {
-          Scene::start();
+	void start() override
+	{
+		Scene::start();
 
-          // Scene-specific code goes here
-     }
+		// Scene-specific code goes here
+	}
 
-     void update() override 
-     {
-          Scene::update();
+	void update() override
+	{
+ 		Scene::update();
 
-          // Scene-specific code goes here
-     }
+		// Scene-specific code goes here
+	}
 
-    void fixedUpdate() override 
-     {
-          Scene::fixedUpdate();
+	void fixedUpdate() override
+	{
+		Scene::fixedUpdate();
 
-          // Scene-specific code goes here
-     }
+		// Scene-specific code goes here
+	}
 };
 ```
+
+
+```cpp
+struct StartScene : Scene
+{
+
+	void start() override
+	{
+		Scene::start();
+
+		// Scene-specific code goes here
+		
+		// makes a frog
+		Entity frog;
+		frog.name = "Frog";
+		frog.addComponent(new CAIController());
+		frog.addComponent(new CModel("Frog.blend"));
+
+		// Adds the frog to the scene
+		entities.push_back(&frog);
+		
+		// Makes a camera that follows the frog
+		Entity camera;
+		camera.addComponent(new C3rdPersonCamera(&frog));
+		
+		// Adds the camera to the scene
+		entities.push_back(&camera);
+		
+		
+		
+	}
+
+	void update() override
+	{
+ 		Scene::update();
+
+		// Scene-specific code goes here
+	}
+
+	void fixedUpdate() override
+	{
+		Scene::fixedUpdate();
+
+		// Scene-specific code goes here
+	}
+};
+```
+
 
 
 

@@ -235,11 +235,11 @@ int main() {
     glEnableVertexAttribArray(0);
 
     // Draws mesh as wireframe
-    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 #pragma endregion
 
 
-    // Main render loop
+    // Main loop
     while (!glfwWindowShouldClose(window))
     {
         // INPUT
