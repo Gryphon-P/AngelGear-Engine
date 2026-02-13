@@ -53,7 +53,7 @@ void _render(GLFWwindow* window, unsigned int shader_program, unsigned int VAO) 
     // Draw the triangle (to be moved to the main renderloop)
     glUseProgram(shader_program);
     glBindVertexArray(VAO);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 
 }
@@ -102,14 +102,12 @@ int main() {
     float vertices[] = {
      0.5f,  0.5f, 0.0f,  // top right
      0.5f, -0.5f, 0.0f,  // bottom right
-    -0.5f, -0.5f, 0.0f,  // bottom left
-    -0.5f,  0.5f, 0.0f   // top left 
+    -0.5f, -0.5f, 0.0f  // bottom left
     };
 
     // Triangle indices
     unsigned int indices[] = {  // note that we start from 0!
-        0, 1, 3,   // first triangle
-        1, 2, 3    // second triangle
+        0, 1, 2,   // first triangle
     };
 
 

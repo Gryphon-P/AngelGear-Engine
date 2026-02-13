@@ -41,5 +41,8 @@
     <ClInclude Include="ecs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="time.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

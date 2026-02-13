@@ -29,6 +29,7 @@
     <ClInclude Include="input.h" />
     <ClInclude Include="raymath.h" />
     <ClInclude Include="settings.h" />
+    <ClInclude Include="time.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
