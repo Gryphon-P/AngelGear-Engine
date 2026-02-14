@@ -2,7 +2,7 @@
 #include <glad/glad.h> // Note: GLAD has to be before GLFW for some reason
 #include <GLFW/glfw3.h>
 
-struct TimeKeeper
+struct Time
 {
 
 	static double time;

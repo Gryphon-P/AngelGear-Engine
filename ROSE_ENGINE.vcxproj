@@ -23,12 +23,15 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ecs.h" />
     <ClInclude Include="input.h" />
+    <ClInclude Include="main.h" />
     <ClInclude Include="raymath.h" />
     <ClInclude Include="settings.h" />
+    <ClInclude Include="shader.h" />
     <ClInclude Include="time.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

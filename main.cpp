@@ -18,7 +18,7 @@ void _process_input(GLFWwindow* window)
         glfwSetWindowShouldClose(window, true);
 }
 
-void _check_shader_for_errors(unsigned int& shader) {
+void checkShaderForErrors(unsigned int& shader) {
 
     int  success;
     char infoLog[512];
@@ -31,7 +31,7 @@ void _check_shader_for_errors(unsigned int& shader) {
     }
 }
 
-void _check_shader_program_for_errors(unsigned int& program) {
+void checkShaderProgramForErrors(unsigned int& program) {
 
 
     int  success;
@@ -152,7 +152,7 @@ int main() {
     glCompileShader(vertexShader);
 
     // Checks if there are any bugs in the shader
-    _check_shader_for_errors(vertexShader);
+    checkShaderForErrors(vertexShader);
 
     // Fragment shader, stores the color data
     const char* fragmentShaderSource =
@@ -168,7 +168,7 @@ int main() {
     fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
     glCompileShader(fragmentShader);
-    _check_shader_for_errors(fragmentShader);
+    checkShaderForErrors(fragmentShader);
 
 
     // Creates the shader program
@@ -178,7 +178,7 @@ int main() {
     glAttachShader(shaderProgram, vertexShader);
     glAttachShader(shaderProgram, fragmentShader);
     glLinkProgram(shaderProgram);
-    _check_shader_program_for_errors(shaderProgram);
+    checkShaderProgramForErrors(shaderProgram);
 
     // We can delete the shaders once we're done with them
     glDeleteShader(vertexShader);
