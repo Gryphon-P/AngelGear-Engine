@@ -1,31 +1,18 @@
 #include "shader.h"
 
-void Shader::checkShaderForErrors(unsigned int& shader)
-{
-	int  success;
-	char infoLog[512];
-	glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
 
-	if (!success)
-	{
-		glGetShaderInfoLog(shader, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::COMPILATION_FAILED\n" << infoLog << std::endl;
-	}
+// Constructor builds the shader from the filepaths
+Shader::Shader(const char* vertex_path_, const char* fragment_path_)
+{
+	init(vertex_path_, fragment_path_);
 }
 
-void Shader::checkShaderProgramForErrors(unsigned int& program)
+void Shader::init(const char* vertex_path_, const char* fragment_path_)
 {
-	int  success;
-	char infoLog[512];
-	glGetProgramiv(program, GL_LINK_STATUS, &success);
-	if (!success) {
-		glGetProgramInfoLog(program, 512, NULL, infoLog);
-		std::cout << "ERROR::SHADER::PROGRAM::COMPILATION_FAILED\n" << infoLog << std::endl;
-	}
-}
 
-Shader::Shader(const char* vertex_path, const char* fragment_path)
-{
+	// Saves the path names for later
+	vertex_path = vertex_path_;
+	fragment_path = fragment_path_;
 
 	// --- READING THE SHADER FILES ---
 
@@ -45,8 +32,8 @@ Shader::Shader(const char* vertex_path, const char* fragment_path)
 	try {
 
 		// Opens the files
-		vertex_filehandler.open(vertex_path);
-		fragment_filehandler.open(fragment_path);
+		vertex_filehandler.open(vertex_path_);
+		fragment_filehandler.open(fragment_path_);
 
 		// Creates string streams
 		std::stringstream vertex_string_stream;
@@ -103,6 +90,56 @@ Shader::Shader(const char* vertex_path, const char* fragment_path)
 	// Deletes the shaders
 	glDeleteShader(vertex);
 	glDeleteShader(fragment);
+
+}
+
+void Shader::checkShaderForErrors(unsigned int& shader)
+{
+	int  success;
+	char infoLog[512];
+	glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
+
+	if (!success)
+	{
+		glGetShaderInfoLog(shader, 512, NULL, infoLog);
+		std::cout << "ERROR::SHADER::COMPILATION_FAILED\n" << infoLog << std::endl;
+	}
+}
+
+void Shader::checkShaderProgramForErrors(unsigned int& program)
+{
+	int  success;
+	char infoLog[512];
+	glGetProgramiv(program, GL_LINK_STATUS, &success);
+	if (!success) {
+		glGetProgramInfoLog(program, 512, NULL, infoLog);
+		std::cout << "ERROR::SHADER::PROGRAM::COMPILATION_FAILED\n" << infoLog << std::endl;
+	}
+}
+
+void Shader::hotReload()
+{
+	std::filesystem::path vertex_filesystem_path = std::filesystem::path(vertex_path);
+	std::filesystem::path fragment_filesystem_path = std::filesystem::path(fragment_path);
+
+	// Checks if the files have changed
+	if (
+		std::filesystem::last_write_time(vertex_filesystem_path) != vertex_time_last_saved
+		|| 
+		std::filesystem::last_write_time(fragment_filesystem_path) != fragment_time_last_saved
+	) 
+	{
+		// Recompiles the shader
+		init(vertex_path, fragment_path);
+		use();
+
+		// Reassigns the last saved time
+		vertex_time_last_saved = std::filesystem::last_write_time(vertex_filesystem_path);
+		fragment_time_last_saved = std::filesystem::last_write_time(fragment_filesystem_path);
+	}
+
+
+
 }
 
 void Shader::use()

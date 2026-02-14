@@ -154,15 +154,6 @@ inline bool _is_key_pressed(GLFWwindow* window, int key) {
 	}
 }
 
-inline bool _is_key_released(GLFWwindow* window, int key) {
-	if (glfwGetKey(window, key) == GLFW_RELEASE) {
-		return true;
-	}
-	else {
-		return false;
-	}
-}
-
 inline bool _is_mouse_clicked(GLFWwindow* window, int button) {
 	if (glfwGetMouseButton(window, button) == GLFW_PRESS) {
 		return true;

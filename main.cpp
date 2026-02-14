@@ -4,6 +4,8 @@
 #include <iostream>
 #include "input.h"
 #include "settings.h"
+#include "time.h"
+#include "shader.h"
 
 // Resizes the viewport according to the window size
 void _framebuffer_size_callback(GLFWwindow* window, int width, int height)
@@ -239,8 +241,17 @@ int main() {
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
-    // Draws mesh as wireframe
+    // Draw polygon mode / settings
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+    // Creates shader object
+    Shader default_shader("default.vertex.glsl", "default.fragment.glsl");
+    default_shader.use();
+
+
+
+    
+
 #pragma endregion
 
 
@@ -254,7 +265,12 @@ int main() {
         // INPUT_END
 
         // RENDERING
-        _render(window, shaderProgram, VAO);
+        _render(window, default_shader.ID, VAO);
+
+        // Hot reloads the shader program
+        default_shader.hotReload();
+        
+
         // RENDERING_END
 
 
