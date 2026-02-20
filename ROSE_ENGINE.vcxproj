@@ -48,6 +48,7 @@
     <ProjectGuid>{fb894413-e5bb-4949-8506-9ce85bdb1802}</ProjectGuid>
     <RootNamespace>ROSEENGINE</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>AngelGear Engine</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
