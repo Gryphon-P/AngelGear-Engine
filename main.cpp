@@ -113,6 +113,16 @@ int main() {
         0, 1, 2,   // first triangle
     };
 
+    // UV positions
+    float texCoords[] = {
+    0.0f, 0.0f,  // lower-left corner  
+    1.0f, 0.0f,  // lower-right corner
+    0.5f, 1.0f   // top-center corner
+    };
+
+    // Texture filtering has two modes:
+    // GL_NEAREST and GL_LINEAR
+
 
     // Vertex buffer object.
     // 1 is the ID for the object
